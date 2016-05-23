@@ -27,7 +27,7 @@ usage() {
      |  Linux System Info Tool v1   |
      |  author: bop                 |
      |  date:   27/04/2016          |
-     |  last:   18/05/2016          |
+     |  last:   23/05/2016          |
      +------------------------------+
 
     usage: $PROGNAME options
