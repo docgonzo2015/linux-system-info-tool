@@ -36,6 +36,8 @@ get a lot of infos from your linux system
 
        Run:
        sysinfo.sh -a
+       
+       After the run look in sysinfo.txt!
 
 ```
 
