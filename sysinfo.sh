@@ -24,7 +24,7 @@ usage() {
              _\|/_
              (o o)
      +----oOO-{_}-OOo---------------+
-     |  Linux System Info Tool v1   |
+     |  Linux System Info Tool v2   |
      |  author: bop                 |
      |  date:   27/04/2016          |
      |  last:   23/05/2016          |
