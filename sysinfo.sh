@@ -6,6 +6,7 @@
 #
 #
 # history:
+#   24/05/2016 - add local port scan and cat history-files
 #   23/05/2016 - check system for info files (crontab, hosts, passwd, proxychains)
 #   18/05/2016 - add usage and getopts
 #   17/05/2016 - add blacklist checker via https://github.com/ST2Labs/SIPI
@@ -47,6 +48,8 @@ usage() {
        -b --blacklist                   get my ip and check blacklist
        -p --perm                        search local folders for perm
        -i --infofiles                   cat info files (crontab, hosts, passwd, proxychains)
+       -P --portscan                    scan localhost for open ports
+       -f --historyfiles                cat the historyfiles (php, bash, sql, etc...)
        -h --help                        show this help
 
 
@@ -159,6 +162,28 @@ infofiles() {
     cat /etc/proxychains.conf >> $SYSINFOFILE
 }
 
+portscan() {
+    local IP="127.0.0.1"
+    local firstport="0"
+    local lastport="65535" 
+    echo "" >> $SYSINFOFILE
+    echo "portscan:=======================================================================" >> $SYSINFOFILE
+    for ((counter=$firstport; counter<=$lastport; counter++))
+    do 
+        (echo >/dev/tcp/$IP/$counter) > /dev/null 2>&1 && echo $counter open >> $SYSINFOFILE
+    done
+}
+
+historyfiles() {
+    echo "" >> $SYSINFOFILE
+    echo "hisotry files:==================================================================" >> $SYSINFOFILE
+    cat ~/.bash_history >> $SYSINFOFILE
+    cat ~/.nano_history >> $SYSINFOFILE
+    cat ~/.atftp_history >> $SYSINFOFILE
+    cat ~/.mysql_history >> $SYSINFOFILE
+    cat ~/.php_history >> $SYSINFOFILE
+}
+
 blacklist() {
     echo "" >> $SYSINFOFILE
     echo "Check Blacklists:===============================================================" >> $SYSINFOFILE
@@ -223,6 +248,8 @@ all() {
     upstart
     versions
     blacklist
+    portscan
+    historyfiles
     infofiles
     perm
     cat $SYSINFOFILE
@@ -248,7 +275,9 @@ cmdline() {
            --os) args="${args}-o ";;
            --versions) args="${args}-v ";;
            --blacklist) args="${args}-b ";;
+           --historyfiles) args="${args}-f ";;
            --infofiles) args="${args}-i ";;
+           --portscan) args="${args}-P ";;
            --perm) args="${args}-p ";;
            #pass through anything else
            *) [[ "${arg:0:1}" == "-" ]] || delim="\""
@@ -259,7 +288,7 @@ cmdline() {
     #Reset the positional parameters to the short options
     eval set -- $args
 
-    while getopts ":O:hawscduovbip" option
+    while getopts ":O:hawscduovbfPip" option
     do
         case $option in
             h) usage;;
@@ -273,6 +302,8 @@ cmdline() {
             o) os;;
             v) versions;;
             b) blacklist;;
+            P) portscan;;
+            f) historyfiles;;
             i) infofiles;;
             p) perm;;
             *) echo $OPTARG is an unrecognized option;;
