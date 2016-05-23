@@ -9,7 +9,7 @@ get a lot of infos from your linux system
      |  Linux System Info Tool v2   |
      |  author: bop                 |
      |  date:   27/04/2016          |
-     |  last:   23/05/2016          |
+     |  last:   24/05/2016          |
      +------------------------------+
 
     usage: sysinfo.sh options
@@ -29,6 +29,8 @@ get a lot of infos from your linux system
        -b --blacklist                   get my ip and check blacklist
        -p --perm                        search local folders for perm
        -i --infofiles                   cat info files (crontab, hosts, passwd, proxychains)
+       -P --portscan                    scan localhost for open ports
+       -f --historyfiles                cat the historyfiles (php, bash, sql, etc...)
        -h --help                        show this help
 
 
