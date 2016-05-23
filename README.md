@@ -40,12 +40,12 @@ get a lot of infos from your linux system
 ```
 
 ## info
-date: 27/04/2016
-author: bop
-function: get sysinfos
+* date: 27/04/2016
+* author: bop
+* function: get sysinfos
 
 ## history
-  * 23/05/2016 - check system for info files (crontab, hosts, passwd, proxychains)
-  * 18/05/2016 - add usage and getopts
-  * 17/05/2016 - add blacklist checker via https://github.com/ST2Labs/SIPI
-  * 27/04/2016 - start project
+  - 23/05/2016 - check system for info files (crontab, hosts, passwd, proxychains)
+  - 18/05/2016 - add usage and getopts
+  - 17/05/2016 - add blacklist checker via https://github.com/ST2Labs/SIPI
+  - 27/04/2016 - start project
