@@ -9,7 +9,7 @@ get a lot of infos from your linux system
      |  Linux System Info Tool v2   |
      |  author: bop                 |
      |  date:   27/04/2016          |
-     |  last:   24/05/2016          |
+     |  last:   18/01/2017          |
      +------------------------------+
 
     usage: sysinfo.sh options
