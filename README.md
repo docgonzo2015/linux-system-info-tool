@@ -49,6 +49,7 @@ get a lot of infos from your linux system
 * function: get sysinfos
 
 ## history
+  - 18/01/2017 - add "--no-check-certificate" option to wget downloads (thx to MrDoob from MLC)
   - 24/05/2016 - add local port scan and cat history-files
   - 23/05/2016 - check system for info files (crontab, hosts, passwd, proxychains)
   - 18/05/2016 - add usage and getopts
