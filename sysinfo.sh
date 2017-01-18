@@ -73,7 +73,7 @@ get_str_between() {
 }
 
 get_server_ip() {
-    local ipecho=$(wget -O - http://ipecho.net/plain; echo)
+    local ipecho=$(wget --no-check-certificate -O - http://ipecho.net/plain; echo)
     echo ipecho
 }
 
@@ -83,10 +83,10 @@ get_server_ip() {
 
 whois() {
     # get remote ip
-    local ipecho=$(wget -O - http://ipecho.net/plain; echo)
+    local ipecho=$(wget --no-check-certificate -O - http://ipecho.net/plain; echo)
     echo "ip: $ipecho" >> $SYSINFOFILE
     # whois
-    local utrace=$(wget -O - http://xml.utrace.de/?query=$ipecho; echo)
+    local utrace=$(wget --no-check-certificate -O - http://xml.utrace.de/?query=$ipecho; echo)
     local isp=$(get_str_between "$utrace" "<isp>" "<\/isp>")
     local org=$(get_str_between "$utrace" "<org>" "<\/org>")
     local countrycode=$(get_str_between "$utrace" "<countrycode>" "<\/countrycode>")
@@ -94,7 +94,7 @@ whois() {
 }
 
 speedtest() {
-    wget ftp://speedtest.tele2.net/100MB.zip 2>&1 \
+    wget --no-check-certificate ftp://speedtest.tele2.net/100MB.zip 2>&1 \
         | grep '\([0-9.]\+ [KM]B/s\)' \
         >> $SYSINFOFILE
     rm 100MB.zip
@@ -165,11 +165,11 @@ infofiles() {
 portscan() {
     local IP="127.0.0.1"
     local firstport="0"
-    local lastport="65535" 
+    local lastport="65535"
     echo "" >> $SYSINFOFILE
     echo "portscan:=======================================================================" >> $SYSINFOFILE
     for ((counter=$firstport; counter<=$lastport; counter++))
-    do 
+    do
         (echo >/dev/tcp/$IP/$counter) > /dev/null 2>&1 && echo $counter open >> $SYSINFOFILE
     done
 }
@@ -188,7 +188,7 @@ blacklist() {
     echo "" >> $SYSINFOFILE
     echo "Check Blacklists:===============================================================" >> $SYSINFOFILE
     # install SIPI
-    wget -O SIPI.tar.gz https://github.com/ST2Labs/SIPI/archive/master.tar.gz
+    wget --no-check-certificate -O SIPI.tar.gz https://github.com/ST2Labs/SIPI/archive/master.tar.gz
     tar xfvz SIPI.tar.gz
     rm SIPI.tar.gz
     # config SIPI
@@ -202,25 +202,25 @@ blacklist() {
     }'
     echo "$config" > "./config.json"
     # install shodan
-    wget -O shodan.tar.gz https://github.com/achillean/shodan-python/archive/master.tar.gz
+    wget --no-check-certificate -O shodan.tar.gz https://github.com/achillean/shodan-python/archive/master.tar.gz
     tar xfvz shodan.tar.gz
     rm shodan.tar.gz
     mv "./shodan-python-master/shodan" "SIPI-master"
     rm -R ./shodan-python-master
     # install simplejson
-    wget -O json.tar.gz https://github.com/simplejson/simplejson/archive/master.tar.gz
+    wget --no-check-certificate -O json.tar.gz https://github.com/simplejson/simplejson/archive/master.tar.gz
     tar xfvz json.tar.gz
     rm json.tar.gz
     mv "./simplejson-master/simplejson" "SIPI-master"
     rm -R simplejson-master
     # install requests
-    wget -O requests.tar.gz https://github.com/kennethreitz/requests/archive/master.tar.gz
+    wget --no-check-certificate -O requests.tar.gz https://github.com/kennethreitz/requests/archive/master.tar.gz
     tar xfvz requests.tar.gz
     rm requests.tar.gz
     mv ./requests-master/requests ./SIPI-master
     rm -R requests-master
     # check the ip
-    local ip=$(wget -O - http://ipecho.net/plain; echo)
+    local ip=$(wget --no-check-certificate -O - http://ipecho.net/plain; echo)
     python ./SIPI-master/sipi.py -o ip_check_blacklist.txt -i -s -A -d 4 $ip
     cat ./SIPI-master/ip_check_blacklist.txt >> $SYSINFOFILE
     rm -R SIPI-master
