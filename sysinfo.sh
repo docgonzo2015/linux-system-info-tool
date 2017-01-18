@@ -6,6 +6,7 @@
 #
 #
 # history:
+#   18/01/2017 - add "--no-check-certificate" option to wget downloads (thx to MrDoob from MLC)
 #   24/05/2016 - add local port scan and cat history-files
 #   23/05/2016 - check system for info files (crontab, hosts, passwd, proxychains)
 #   18/05/2016 - add usage and getopts
@@ -28,7 +29,7 @@ usage() {
      |  Linux System Info Tool v2   |
      |  author: bop                 |
      |  date:   27/04/2016          |
-     |  last:   24/05/2016          |
+     |  last:   18/01/2017          |
      +------------------------------+
 
     usage: $PROGNAME options
